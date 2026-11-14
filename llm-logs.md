@@ -877,3 +877,20 @@ Measured on a phone after an answer: 24px from the last content to the pane's ed
   - A question not answered ahead of time ("Who are the largest customers?" on DIXON) came back with an answer citing DIXON's FY26 annual report, page 24.
   - The alert text is model-written, not the fallback note.
 - The Vercel project is not connected to GitHub, so pushes do not deploy; `CLAUDE.md` records the deploy command.
+
+### A45 · 15 Nov — README and the live link on GitHub
+
+**Prompt**
+
+> Okay add the vercel link on github about section add a readme as well explaining about the project and how to run it
+
+**What Claude did**
+
+- Set the repo's About website to https://finn-three-kappa.vercel.app (`gh repo edit --homepage`).
+- Wrote `README.md`, drawn from the code, `PRD.md` and `Future.md`:
+  - the live link and the problem
+  - what Push and Pull do
+  - how it works: figures by arithmetic, quotes checked against their pages, cheap versus reasoning models, pre-read companies, no cron or database, cookies instead of accounts
+  - the data sources
+  - how to run it locally (Node 22.6+, `.env.local` keys, dev / check / build, pre-reading a company)
+  - what still works without a key, the project layout, and links to the spec, the build log, the known problems and the product principles
