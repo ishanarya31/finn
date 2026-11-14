@@ -1,0 +1,4 @@
+*.pdf
+*.md
+.next
+node_modules

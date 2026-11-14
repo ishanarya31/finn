@@ -1,0 +1,173 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FINN · Highlights</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Spline+Sans+Mono:wght@400;500;600&display=swap" rel="stylesheet"><style>
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;min-height:100vh;color:var(--ink);background:var(--ground);font:400 15px/1.45 var(--f-ui);-webkit-font-smoothing:antialiased}
+h1,h2,h3,p,ul,ol,dl,dd{margin:0;padding:0}ul,ol{list-style:none}a{color:inherit;text-decoration:none}
+::selection{background:var(--accent);color:var(--accent-ink)}:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:8px}
+*{scrollbar-width:thin;scrollbar-color:var(--ink3) transparent}
+.bg{position:fixed;inset:0;z-index:-1;pointer-events:none}
+.num,time{font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}.tab td,.yax,.xax,.sky text{font-family:var(--f-num);font-variant-numeric:tabular-nums}
+.up{color:var(--up)}.down{color:var(--down)}.muted{color:var(--ink2)}
+.ic{width:18px;height:18px;flex:none}
+.glass{position:relative;background:var(--pane);border:1px solid var(--pane-brd);border-radius:var(--r);box-shadow:var(--pane-shadow);
+ -webkit-backdrop-filter:blur(var(--blur)) saturate(var(--sat));backdrop-filter:blur(var(--blur)) saturate(var(--sat))}
+/* top bar: the glass sits on a pseudo-element, so the bar does not become the containing block of the fixed phone tab bar */
+.top.glass{background:none;border-color:transparent;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}
+.top::after{content:"";position:absolute;inset:-1px;z-index:-1;border-radius:inherit;background:var(--pane);border:1px solid var(--pane-brd);box-shadow:var(--pane-shadow);-webkit-backdrop-filter:blur(var(--blur)) saturate(var(--sat));backdrop-filter:blur(var(--blur)) saturate(var(--sat))}
+.top{position:sticky;top:12px;z-index:10;display:flex;align-items:center;gap:12px;width:calc(100% - 24px);max-width:1360px;margin:12px auto 0;padding:6px;border-radius:999px}
+.mark{padding:0 12px 0 14px;font-weight:800;font-size:18px;letter-spacing:.16em}
+.find{display:flex;align-items:center;gap:8px;flex:1;max-width:380px;height:40px;padding:0 14px;border-radius:999px;background:var(--well);color:var(--ink2)}
+.find input{flex:1;min-width:0;border:0;background:none;font:inherit;color:var(--ink);outline:none}.find input::placeholder{color:var(--ink2)}
+.nav{display:flex;gap:2px;margin-left:auto}
+.nav a{display:flex;align-items:center;gap:7px;height:40px;padding:0 16px;border-radius:999px;color:var(--ink2);font-weight:550;transition:background .25s,color .25s}
+.nav a:hover{color:var(--ink);background:var(--well)}.nav a[aria-current]{background:var(--sel);color:var(--sel-ink);box-shadow:var(--sel-shadow)}
+.nav .n-search{display:none}
+/* shell */
+.shell{display:grid;gap:16px;max-width:1360px;margin:16px auto 0;padding:0 12px 32px}
+.list{display:flex;flex-direction:column;gap:12px;min-width:0}
+.lede{padding:22px 22px 16px}.lede h1{display:flex;align-items:baseline;gap:10px;font-size:26px;font-weight:650;letter-spacing:-.02em}
+.lede .n{font-size:52px;line-height:1;font-weight:600;letter-spacing:-.04em;color:var(--accent-text)}
+.sub{margin-top:8px;color:var(--ink2);font-size:14px}.sub b{color:var(--ink);font-weight:600}
+.strip{display:flex;gap:3px;height:8px;margin-top:16px}.strip i{border-radius:4px}.strip .s-a{background:var(--accent)}.strip .s-m{background:var(--ink3)}.strip .s-h{background:var(--well2)}
+.strip-key{display:flex;justify-content:space-between;margin-top:6px;font-size:12px;color:var(--ink2)}
+.win{display:flex;gap:2px;margin-top:16px;padding:3px;border-radius:999px;background:var(--well)}
+.win a{flex:1;text-align:center;padding:7px 0;border-radius:999px;font-size:13.5px;font-weight:550;color:var(--ink2);transition:background .25s,color .25s}
+.win a[aria-current]{background:var(--sel);color:var(--sel-ink);box-shadow:var(--sel-shadow)}
+.win.sm{margin:0;flex:none}.win.sm a{padding:5px 11px;font-size:12.5px}
+.sh{display:flex;align-items:baseline;gap:8px;margin:14px 6px 0;font-size:13px;font-weight:650;letter-spacing:.06em;text-transform:uppercase;color:var(--sh)}
+.c{font-weight:500;color:var(--ink2);letter-spacing:0}
+.alerts{display:flex;flex-direction:column;gap:8px}
+.card{display:block;padding:14px 16px;border-radius:calc(var(--r) - 4px);background:var(--card);border:1px solid var(--card-brd);box-shadow:var(--card-shadow);
+ -webkit-backdrop-filter:blur(var(--blur)) saturate(var(--sat));backdrop-filter:blur(var(--blur)) saturate(var(--sat));
+ transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s,background .35s,opacity .35s;animation:rise .6s cubic-bezier(.16,1,.3,1) both;animation-delay:calc(var(--i)*35ms)}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}}
+.card:hover{transform:translateY(-1px)}.card.on{background:var(--card-on);border-color:var(--card-on-brd);box-shadow:var(--card-on-shadow)}
+.ch{display:flex;align-items:baseline;gap:8px}.tk{font-weight:700;letter-spacing:.02em}
+.cat{font-size:12.5px;font-weight:550;color:var(--cat);padding:2px 8px;border-radius:999px;background:var(--cat-bg)}
+.ch time{margin-left:auto;font-size:12px;color:var(--ink2);white-space:nowrap}
+.ln{margin-top:6px;font-size:14px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.ln b{font-weight:600}
+.ft{margin-top:6px;font-size:12.5px;color:var(--ink2)}
+.rows{padding:4px 0}.rows li{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:baseline;padding:10px 16px;font-size:13.5px}
+.rows li+li{border-top:1px solid var(--line)}.rows .tx{overflow:hidden;white-space:nowrap;text-overflow:ellipsis;color:var(--ink2)}.rows time{font-size:12px;color:var(--ink2)}
+.rows .more{display:block;color:var(--ink2);font-weight:550}
+.fold summary{display:flex;align-items:baseline;gap:8px;padding:14px 16px;cursor:pointer;list-style:none;font-weight:650}.fold summary::-webkit-details-marker{display:none}
+.fold .d{color:var(--ink2);font-weight:400;font-size:13.5px}.fold .chev{margin-left:auto;align-self:center;transition:transform .3s;color:var(--ink2)}.fold[open] .chev{transform:rotate(90deg)}
+.quiet{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:6px;padding:0 12px 14px}
+.quiet li{display:flex;justify-content:space-between;padding:8px 10px;border-radius:12px;background:var(--well);font-size:13px}
+.hid .tx{text-decoration:line-through;text-decoration-color:var(--ink3)}
+.foot{margin:6px 6px 0;font-size:12px;color:var(--og2,var(--ink2))}.list>.sh{color:var(--og,var(--sh))}.list>.sh .c{color:var(--og2,var(--ink2))}
+/* detail */
+.detail{padding:26px 28px 20px;min-width:0}
+.back{display:none;align-items:center;gap:4px;margin:-6px 0 14px -6px;font-weight:600;color:var(--accent-text)}
+.dh{display:grid;grid-template-columns:1fr auto;gap:6px 24px;align-items:end;padding-bottom:20px;border-bottom:1px solid var(--line)}
+.dt h2{font-size:30px;font-weight:700;letter-spacing:-.01em}.dt p{color:var(--ink2);margin-top:2px}
+.facts{display:flex;gap:22px}.facts dt{font-size:12px;color:var(--ink2)}.facts dd{font-size:18px;font-weight:600}
+.badge{grid-column:1/-1;display:flex;gap:10px;align-items:center;margin-top:8px;font-size:13px}
+.badge span{padding:4px 10px;border-radius:999px;background:var(--accent);color:var(--accent-ink);font-weight:650}.badge time{color:var(--ink2)}
+.blk{padding:22px 0;border-bottom:1px solid var(--line)}.blk h3{margin-bottom:10px;font-size:13px;font-weight:650;letter-spacing:.06em;text-transform:uppercase;color:var(--sh)}
+.blk>p{max-width:68ch}
+.tab{width:100%;max-width:560px;margin-top:14px;border-collapse:collapse;font-size:14px}
+.tab th,.tab td{padding:9px 0;text-align:right;border-bottom:1px solid var(--line);font-weight:500}.tab tr>:first-child{text-align:left}
+.tab thead th{font-size:12px;color:var(--ink2);font-weight:550}.tab tbody th{font-weight:600}
+.ctop{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.ctop b{font-size:22px;font-weight:600}
+.cwrap{display:grid;grid-template-columns:auto 1fr;gap:10px;margin-top:16px}.yax{display:flex;flex-direction:column;justify-content:space-between;font-size:11.5px;color:var(--ink2)}
+.chart{display:block;width:100%;height:180px;overflow:visible}.c-line{fill:none;stroke:var(--chart);stroke-width:2;stroke-linejoin:round}.c-area{fill:var(--chart-fill)}
+.c-ev{stroke:var(--accent);stroke-width:1.5;stroke-dasharray:3 3}
+.xax{display:flex;justify-content:space-between;margin:6px 0 0 44px;font-size:11.5px;color:var(--ink2)}.cap{margin-top:8px;font-size:12.5px}
+.why{font-size:16px;line-height:1.55}.kv{margin-top:12px;display:grid;gap:6px;font-size:14px;color:var(--ink2)}.kv b{font-weight:600}
+.next{counter-reset:n;display:grid;gap:8px}.next li{counter-increment:n;display:flex;gap:12px;align-items:baseline;padding:12px 14px;border-radius:14px;background:var(--well)}
+.next li::before{content:counter(n);font:600 12px/1 var(--f-num);color:var(--accent-text)}
+.src{display:grid;gap:2px}.src a{display:flex;align-items:center;gap:10px;padding:10px 12px;margin:0 -12px;border-radius:12px;transition:background .2s}.src a:hover{background:var(--well)}
+.src span{font-weight:550}.src small{margin-left:auto;color:var(--ink2);font-size:12px}.src .ic{color:var(--ink2);width:16px;height:16px}
+.research{display:flex;align-items:center;gap:12px;margin-top:22px;padding:18px 20px;border-radius:calc(var(--r) - 4px);background:var(--sel);color:var(--sel-ink);box-shadow:var(--sel-shadow)}
+.research span{flex:1;display:grid;gap:2px}.research small{opacity:.8}
+.ask{position:sticky;bottom:12px;display:flex;align-items:center;gap:8px;margin-top:22px;padding:6px 6px 6px 18px;border-radius:999px}
+.ask input{flex:1;min-width:0;border:0;background:none;font:inherit;color:var(--ink);outline:none;height:40px}.ask input::placeholder{color:var(--ink2)}
+.ask button{display:grid;place-items:center;width:40px;height:40px;border:0;border-radius:50%;background:var(--accent);color:var(--accent-ink);cursor:pointer}
+/* desktop: two panes */
+@media (min-width:980px){
+ .shell{grid-template-columns:minmax(380px,440px) 1fr;align-items:start}
+ .list,.detail{position:sticky;top:76px;max-height:calc(100vh - 88px);overflow:auto;overscroll-behavior:contain}
+ .list{padding:2px 4px 2px 2px}
+ .alerts:has(.on) .card:not(.on):not(:hover){opacity:var(--dim,1)}
+}
+/* phone: list, then the alert as a full sheet */
+@media (max-width:979px){
+ .find{display:none}.top{justify-content:center}.mark{padding:6px 0}
+ .nav{position:fixed;z-index:15;left:12px;right:12px;bottom:12px;justify-content:space-around;margin:0;padding:6px;border-radius:999px;
+  background:var(--pane);border:1px solid var(--pane-brd);box-shadow:var(--pane-shadow);-webkit-backdrop-filter:blur(var(--blur)) saturate(var(--sat));backdrop-filter:blur(var(--blur)) saturate(var(--sat))}
+ .nav a{flex:1;flex-direction:column;gap:2px;height:52px;justify-content:center;padding:0;font-size:11px}.nav .ic{width:20px;height:20px}.nav .n-search{display:flex}
+ .shell{grid-template-columns:minmax(0,1fr);padding-bottom:96px}
+ .detail{display:none}
+ .detail:target{display:block;position:fixed;inset:0;z-index:20;border-radius:0;border:0;overflow:auto;padding:18px 16px 24px;background:var(--sheet);animation:sheet .45s cubic-bezier(.16,1,.3,1)}
+ .back{display:inline-flex}.dh{grid-template-columns:1fr}.facts{gap:18px}
+ body:has(.detail:target) .nav{display:none}
+}
+@keyframes sheet{from{transform:translateY(24px);opacity:0}}
+@media (prefers-reduced-motion:reduce){*,*::before{animation:none!important;transition:none!important}}
+:root{--f-ui:"Schibsted Grotesk",system-ui,sans-serif;--f-num:"Spline Sans Mono",ui-monospace,monospace;
+ --ground:#1b36a8;--ink:#0b1330;--ink2:#4a5476;--ink3:#a9b1cc;--accent:#1b36a8;--accent-ink:#fff;--accent-text:#1b36a8;--up:#0d7a45;--down:#c0281c;
+ --pane:rgba(248,250,255,.80);--pane-brd:rgba(255,255,255,.7);--pane-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 24px 60px -24px rgba(6,16,70,.6);
+ --r:24px;--blur:22px;--sat:1.5;--well:rgba(27,54,168,.07);--well2:rgba(27,54,168,.16);--line:rgba(11,19,48,.1);--sh:#0b1330;
+ --sel:#1b36a8;--sel-ink:#fff;--sel-shadow:0 6px 18px -6px rgba(27,54,168,.6);
+ --card:rgba(248,250,255,.72);--card-brd:rgba(255,255,255,.55);--card-shadow:0 10px 30px -18px rgba(6,16,70,.6);
+ --card-on:#fff;--card-on-brd:#fff;--card-on-shadow:0 0 0 2px #fff,0 18px 40px -16px rgba(6,16,70,.75);--dim:.78;
+ --cat:#1b36a8;--cat-bg:rgba(27,54,168,.09);--og:#fff;--og2:rgba(255,255,255,.75);--chart:#1b36a8;--chart-fill:rgba(27,54,168,.08);--sheet:#f4f6fd}
+.bg{background:radial-gradient(1200px 700px at 85% 110%,#2f56e6 0,transparent 60%),radial-gradient(900px 600px at 0% 0%,#14287f 0,transparent 60%),#1b36a8}
+.bg::after{content:"";position:absolute;inset:0;background:repeating-radial-gradient(circle at 92% 108%,transparent 0 46px,rgba(255,255,255,.07) 46px 47px);mask:radial-gradient(900px 900px at 92% 108%,#000 30%,transparent 75%)}
+.top .mark{color:#1b36a8}
+.hl{display:grid;grid-template-columns:repeat(3,1fr);margin-top:22px;border-block:1px solid var(--line)}
+.hl div{padding:18px 16px 16px;display:grid;gap:6px}.hl div+div{border-left:1px solid var(--line)}
+.hl b{font:600 40px/1 var(--f-ui);letter-spacing:-.04em;font-variant-numeric:tabular-nums}.hl small{font-size:.45em;letter-spacing:0;margin-left:2px}
+.hl span{font-size:13px;color:var(--ink2)}.hl em{font-style:normal;font-weight:600}
+.dh{border:0;padding-bottom:0}
+@media (max-width:979px){.hl{grid-template-columns:1fr}.hl div+div{border-left:0;border-top:1px solid var(--line)}.hl b{font-size:34px}}
+</style></head>
+<body class="t-a"><svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M16 16l4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+<symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 5.5l6.5 6.5L9 18.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-back" viewBox="0 0 24 24"><path d="M15 5.5L8.5 12l6.5 6.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-out" viewBox="0 0 24 24"><path d="M8 16L16.5 7.5M9.5 7.5h7v7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-send" viewBox="0 0 24 24"><path d="M12 19V5.5M6 11.5l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-feed" viewBox="0 0 24 24"><path d="M4.5 6.5h15M4.5 12h15M4.5 17.5h9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+<symbol id="i-port" viewBox="0 0 24 24"><rect x="4" y="7" width="16" height="12" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M9 7V5.5h6V7" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+<symbol id="i-rules" viewBox="0 0 24 24"><path d="M5 7.5h8M17 7.5h2M5 16.5h2M11 16.5h8" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="15" cy="7.5" r="2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="9" cy="16.5" r="2" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+</svg><div class="bg" aria-hidden="true"></div>
+<header class="top glass"><a class="mark" href="#">FINN</a>
+<label class="find"><svg class="ic" aria-hidden="true"><use href="#i-search"/></svg><input placeholder="Search any NSE company" aria-label="Search any NSE company"></label>
+<nav class="nav" aria-label="Main"><a href="#" aria-current="page"><svg class="ic" aria-hidden="true"><use href="#i-feed"/></svg><span>Feed</span></a><a href="#" class="n-search"><svg class="ic" aria-hidden="true"><use href="#i-search"/></svg><span>Search</span></a><a href="#"><svg class="ic" aria-hidden="true"><use href="#i-port"/></svg><span>Portfolio</span></a><a href="#"><svg class="ic" aria-hidden="true"><use href="#i-rules"/></svg><span>Rules</span></a></nav></header>
+<div class="shell">
+<section class="list" aria-label="Feed">
+<div class="lede glass"><h1><span class="n num">13</span> need you</h1>
+<p class="sub"><b class="num">7</b> minor · <b class="num">20</b> hidden · <b class="num">9</b> of 18 holdings quiet</p><div class="strip" role="img" aria-label="13 alerts, 7 minor, 20 hidden"><i class="s-a" style="flex-grow:13"></i><i class="s-m" style="flex-grow:7"></i><i class="s-h" style="flex-grow:20"></i></div><p class="strip-key"><span>Shown</span><span>Filtered out</span></p>
+<nav class="win" aria-label="Time window"><a href="#">24h</a><a href="#">3d</a><a href="#" aria-current="true">7d</a><a href="#">Custom</a></nav></div>
+<h2 class="sh">Alerts <span class="c num">13</span></h2><div class="alerts"><a class="card on" href="#d" style="--i:0"><div class="ch"><span class="tk">OLAELEC</span><span class="cat">Results</span><time>12 Nov, 16:03</time></div><p class="ln">Revenue <b class="num">₹421 cr</b> <span class="num down">−39% YoY</span> · PAT <b class="num down">−₹362 cr</b></p><p class=ft>5 filings, one event</p></a><a class="card" href="#d" style="--i:1"><div class="ch"><span class="tk">TATAPOWER</span><span class="cat">Results</span><time>11 Nov, 17:20</time></div><p class="ln">Revenue <b class="num">₹19,636 cr</b> <span class="num up">+26% YoY</span> · PAT <b class="num">₹1,652 cr</b> <span class="num up">+33%</span></p><p class=ft>Volume 3.7× 20-day avg · 4 filings</p></a><a class="card" href="#d" style="--i:2"><div class="ch"><span class="tk">HDFCBANK</span><span class="cat">Management change</span><time>13 Nov, 16:35</time></div><p class="ln">Change in Director(s) of the company</p></a><a class="card" href="#d" style="--i:3"><div class="ch"><span class="tk">HDFCBANK</span><span class="cat">Management change</span><time>12 Nov, 17:33</time></div><p class="ln">Approval from the Reserve Bank of India for re-appointment of Mr. V. Srinivasa Rangan as Whole-time Director</p></a><a class="card" href="#d" style="--i:4"><div class="ch"><span class="tk">TATAPOWER</span><span class="cat">Management change</span><time>11 Nov, 19:22</time></div><p class="ln">Appointment of Mr Sanjay Kumar Banga as additional Executive Director w.e.f. November 11, 2026</p><p class=ft>2 filings, one event</p></a><a class="card" href="#d" style="--i:5"><div class="ch"><span class="tk">ADANIENT</span><span class="cat">M&amp;A</span><time>11 Nov, 20:14</time></div><p class="ln">Incorporation of Adani Rovuma Chemicals Limited by Adani Global Limited, a wholly owned subsidiary</p></a><a class="card" href="#d" style="--i:6"><div class="ch"><span class="tk">ADANIENT</span><span class="cat">M&amp;A</span><time>8 Nov, 17:32</time></div><p class="ln">Completion of acquisition of 100% stake in Vizag Mega Data Center Park Limited by AdaniConneX</p></a><a class="card" href="#d" style="--i:7"><div class="ch"><span class="tk">BAJFINANCE</span><span class="cat">Fund raise</span><time>11 Nov, 17:13</time></div><p class="ln">Outcome of QIP 2026 – Special Committee meeting</p></a><a class="card" href="#d" style="--i:8"><div class="ch"><span class="tk">BAJFINANCE</span><span class="cat">Fund raise</span><time>10 Nov, 12:58</time></div><p class="ln">Allotment of 5,74,25,740 securities pursuant to Preferential Issue</p></a><a class="card" href="#d" style="--i:9"><div class="ch"><span class="tk">PAYTM</span><span class="cat">Unusual move</span><time>12 Nov, 15:30</time></div><p class="ln">Price <b class="num up">+7.3%</b> · Volume <b class="num">3.0×</b> 20-day avg</p><p class=ft>No material filing explains it</p></a><a class="card" href="#d" style="--i:10"><div class="ch"><span class="tk">OLAELEC</span><span class="cat">Unusual move</span><time>12 Nov, 15:30</time></div><p class="ln">Price <b class="num up">+3.8%</b> · Volume <b class="num">2.1×</b> 20-day avg</p><p class=ft>No material filing explains it</p></a><a class="card" href="#d" style="--i:11"><div class="ch"><span class="tk">INDUSINDBK</span><span class="cat">Unusual move</span><time>11 Nov, 15:30</time></div><p class="ln">Price <b class="num up">+0.6%</b> · Volume <b class="num">2.6×</b> 20-day avg</p><p class=ft>No material filing explains it</p></a><a class="card" href="#d" style="--i:12"><div class="ch"><span class="tk">TATAPOWER</span><span class="cat">Unusual move</span><time>11 Nov, 15:30</time></div><p class="ln">Price <b class="num">0.0%</b> · Volume <b class="num">2.4×</b> 20-day avg</p><p class=ft>No material filing explains it</p></a></div>
+<h2 class="sh">Minor <span class="c num">7</span></h2><ul class="rows glass"><li><span class="tk">OLAELEC</span><span class="tx">Link of Recording</span><time>12 Nov, 19:01</time></li><li><span class="tk">BHARTIARTL</span><span class="tx">Transcript</span><time>12 Nov, 17:36</time></li><li><span class="tk">ADANIENT</span><span class="tx">Media release: Kutch Copper and Codelco sign MoU for exploration in Chile</span><time>12 Nov, 08:22</time></li><li><span class="tk">TATAPOWER</span><span class="tx">Link of Recording</span><time>11 Nov, 20:35</time></li><li class="more">+ 3 more</li></ul>
+<details class="fold glass"><summary>Quiet <span class="c num">9</span><span class="d">holdings, nothing material</span><svg class="ic chev" aria-hidden="true"><use href="#i-chev"/></svg></summary><ul class="quiet"><li><span class="tk">RELIANCE</span><span class="num ">0.0%</span></li><li><span class="tk">TCS</span><span class="num down">−1.4%</span></li><li><span class="tk">PERSISTENT</span><span class="num down">−0.4%</span></li><li><span class="tk">SUNPHARMA</span><span class="num down">−0.3%</span></li><li><span class="tk">MARUTI</span><span class="num down">−1.3%</span></li><li><span class="tk">ASIANPAINT</span><span class="num up">+0.5%</span></li><li><span class="tk">VEDL</span><span class="num down">−0.3%</span></li><li><span class="tk">POLYCAB</span><span class="num down">−2.2%</span></li><li><span class="tk">TRENT</span><span class="num down">−0.5%</span></li></ul></details>
+<details class="fold glass hid"><summary>Hidden <span class="c num">20</span><span class="d">routine filings</span><svg class="ic chev" aria-hidden="true"><use href="#i-chev"/></svg></summary><ul class="rows"><li><span class="tk">BHARTIARTL</span><span class="tx">Copy of Newspaper Publication</span><time>14 Nov, 15:52</time></li><li><span class="tk">RELIANCE</span><span class="tx">Analysts/Institutional Investor Meet</span><time>13 Nov, 18:25</time></li><li><span class="tk">PAYTM</span><span class="tx">Updates</span><time>13 Nov, 14:42</time></li><li><span class="tk">TRENT</span><span class="tx">General Updates</span><time>13 Nov, 11:24</time></li><li><span class="tk">OLAELEC</span><span class="tx">Updates</span><time>12 Nov, 22:42</time></li><li><span class="tk">OLAELEC</span><span class="tx">General Updates</span><time>12 Nov, 22:39</time></li><li><span class="tk">RELIANCE</span><span class="tx">Analysts/Institutional Investor Meet</span><time>12 Nov, 20:23</time></li><li><span class="tk">INDUSINDBK</span><span class="tx">Analysts/Institutional Investor Meet</span><time>12 Nov, 17:47</time></li><li><span class="tk">HDFCBANK</span><span class="tx">Analysts/Institutional Investor Meet</span><time>12 Nov, 14:27</time></li><li><span class="tk">MARUTI</span><span class="tx">Analysts/Institutional Investor Meet</span><time>12 Nov, 11:57</time></li><li><span class="tk">ADANIENT</span><span class="tx">Analysts/Institutional Investor Meet</span><time>11 Nov, 19:28</time></li><li><span class="tk">BHARTIARTL</span><span class="tx">Analysts/Institutional Investor Meet</span><time>11 Nov, 18:33</time></li><li><span class="tk">INDUSINDBK</span><span class="tx">Analysts/Institutional Investor Meet</span><time>11 Nov, 16:21</time></li><li><span class="tk">TATAPOWER</span><span class="tx">ESOP/ESOS/ESPS</span><time>11 Nov, 13:45</time></li><li><span class="tk">TATAPOWER</span><span class="tx">Analysts/Institutional Investor Meet</span><time>11 Nov, 09:57</time></li><li><span class="tk">BAJFINANCE</span><span class="tx">Committee Meeting Updates</span><time>10 Nov, 12:15</time></li><li><span class="tk">ASIANPAINT</span><span class="tx">Analysts/Institutional Investor Meet</span><time>9 Nov, 18:11</time></li><li><span class="tk">TCS</span><span class="tx">Analysts/Institutional Investor Meet</span><time>9 Nov, 17:12</time></li><li><span class="tk">INDUSINDBK</span><span class="tx">Analysts/Institutional Investor Meet</span><time>9 Nov, 15:10</time></li><li><span class="tk">TRENT</span><span class="tx">Analysts/Institutional Investor Meet</span><time>9 Nov, 13:00</time></li></ul></details>
+<p class="foot">Filings: NSE. Prices: Yahoo Finance, end of day. Results: screener.in. Read 14 Nov, 23:23 IST.</p>
+</section>
+<article class="detail glass" id="d" aria-label="Alert">
+<a class="back" href="#"><svg class="ic" aria-hidden="true"><use href="#i-back"/></svg>Feed</a>
+<header class="dh"><div class="dt"><h2><span class="tk">OLAELEC</span></h2><p>Ola Electric Mobility Ltd · 2/3 Wheelers</p></div>
+<dl class="facts"><div><dt>Price</dt><dd class="num">₹34.6</dd></div><div><dt>M.cap</dt><dd class="num">₹17,320 cr</dd></div></dl>
+<p class="badge"><span>Results</span><time>12 Nov, 16:03 IST</time></p></header>
+<div class="hl"><div><b class="num">₹421<small> cr</small></b><span>Revenue · <em class="down">−39% YoY</em></span></div><div><b class="num down">−₹218<small> cr</small></b><span>EBITDA · loss widened</span></div><div><b class="num down">−51.8%</b><span>EBITDA margin · was −29.4%</span></div></div>
+<section class="blk"><h3>What happened</h3><p>The unaudited financial results for the quarter and half-year ended September 30, 2026.</p>
+<table class="tab"><thead><tr><th>₹ cr · Sep 2026</th><th>Qtr</th><th>QoQ</th><th>YoY</th></tr></thead><tbody>
+<tr><th>Revenue</th><td>421</td><td class="down">−7%</td><td class="down">−39%</td></tr><tr><th>EBITDA</th><td>−218</td><td>n/m</td><td>n/m</td></tr>
+<tr><th>PBT</th><td>−362</td><td>n/m</td><td>n/m</td></tr><tr><th>PAT</th><td>−362</td><td>n/m</td><td>n/m</td></tr></tbody></table></section>
+<section class="blk cbox"><div class="ctop"><p><b class="num">₹34.65</b> <span class="num down">−12.7%</span> <span class="muted">over 3M · 13 Nov</span></p>
+<nav class="win sm" aria-label="Range"><a href="#">1M</a><a href="#" aria-current="true">3M</a><a href="#">1Y</a><a href="#">5Y</a></nav></div>
+<div class="cwrap"><div class="yax num"><span>43.53</span><span>36.23</span><span>28.92</span></div><svg class="chart" viewBox="0 0 600 170" preserveAspectRatio="none" role="img" aria-label="OLAELEC close over 3 months, −12.7%">
+<path class="c-area" d="M0.0,51.5 L9.7,53.0 L19.4,52.7 L29.0,41.8 L38.7,44.4 L48.4,32.4 L58.1,29.0 L67.7,28.0 L77.4,17.7 L87.1,21.5 L96.8,14.3 L106.5,16.1 L116.1,23.6 L125.8,27.4 L135.5,28.3 L145.2,29.0 L154.8,45.3 L164.5,50.6 L174.2,51.4 L183.9,52.4 L193.5,61.5 L203.2,66.6 L212.9,66.1 L222.6,60.5 L232.3,76.0 L241.9,69.4 L251.6,83.2 L261.3,92.3 L271.0,100.7 L280.6,106.5 L290.3,108.1 L300.0,124.7 L309.7,126.5 L319.4,131.7 L329.0,139.8 L338.7,140.2 L348.4,141.8 L358.1,148.3 L367.7,149.9 L377.4,150.3 L387.1,146.6 L396.8,152.8 L406.5,156.6 L416.1,154.5 L425.8,156.2 L435.5,155.8 L445.2,155.1 L454.8,143.8 L464.5,139.5 L474.2,139.4 L483.9,128.6 L493.5,123.6 L503.2,114.4 L512.9,113.5 L522.6,115.6 L532.3,116.2 L541.9,100.6 L551.6,103.8 L561.3,91.2 L571.0,80.4 L580.6,81.6 L590.3,90.3 L600.0,100.5 L600,170 L0,170 Z"/><path class="c-line" d="M0.0,51.5 L9.7,53.0 L19.4,52.7 L29.0,41.8 L38.7,44.4 L48.4,32.4 L58.1,29.0 L67.7,28.0 L77.4,17.7 L87.1,21.5 L96.8,14.3 L106.5,16.1 L116.1,23.6 L125.8,27.4 L135.5,28.3 L145.2,29.0 L154.8,45.3 L164.5,50.6 L174.2,51.4 L183.9,52.4 L193.5,61.5 L203.2,66.6 L212.9,66.1 L222.6,60.5 L232.3,76.0 L241.9,69.4 L251.6,83.2 L261.3,92.3 L271.0,100.7 L280.6,106.5 L290.3,108.1 L300.0,124.7 L309.7,126.5 L319.4,131.7 L329.0,139.8 L338.7,140.2 L348.4,141.8 L358.1,148.3 L367.7,149.9 L377.4,150.3 L387.1,146.6 L396.8,152.8 L406.5,156.6 L416.1,154.5 L425.8,156.2 L435.5,155.8 L445.2,155.1 L454.8,143.8 L464.5,139.5 L474.2,139.4 L483.9,128.6 L493.5,123.6 L503.2,114.4 L512.9,113.5 L522.6,115.6 L532.3,116.2 L541.9,100.6 L551.6,103.8 L561.3,91.2 L571.0,80.4 L580.6,81.6 L590.3,90.3 L600.0,100.5" vector-effect="non-scaling-stroke"/>
+<line class="c-ev" x1="590.3" x2="590.3" y1="0" y2="170" vector-effect="non-scaling-stroke"/></svg></div>
+<div class="xax num"><span>13 Aug</span><span>28 Sept</span><span>13 Nov</span></div><p class="muted cap">Close, ₹. Marked: the event day.</p></section>
+<section class="blk"><h3>Why it matters</h3><p class="why">Q2 FY27 revenue fell 7% QoQ and 39% YoY to ₹421 crore, while the EBITDA loss was ₹218 crore and margin worsened to −51.8%. The supplied facts lack cash, debt or guidance detail.</p>
+<ul class="kv"><li>EBITDA margin <b class="num down">−51.8%</b>, against −36.3% last quarter and −29.4% a year ago.</li><li>First close after the filing: <b class="num down">−3.0%</b> on 1.1× average volume. No threshold crossed.</li></ul></section>
+<section class="blk"><h3>What to check next</h3><ol class="next"><li>Q2 FY27 investor presentation: revenue mix and cost lines</li><li>Q2 FY27 KPI data book: volumes, deliveries, capacity utilisation</li><li>Q2 FY27 shareholders' letter: cash balance and funding plans</li></ol></section>
+<section class="blk"><h3>Sources</h3><ul class="src"><li><a href="#d"><span>Outcome of Board Meeting</span><small class="num">12 Nov, 16:03 · 1.41 MB</small><svg class="ic" aria-hidden="true"><use href="#i-out"/></svg></a></li><li><a href="#d"><span>Investor Presentation</span><small class="num">12 Nov, 16:19 · 16.93 MB</small><svg class="ic" aria-hidden="true"><use href="#i-out"/></svg></a></li><li><a href="#d"><span>Updates</span><small class="num">12 Nov, 16:28 · 16.93 MB</small><svg class="ic" aria-hidden="true"><use href="#i-out"/></svg></a></li><li><a href="#d"><span>Updates</span><small class="num">12 Nov, 18:48 · 471 KB</small><svg class="ic" aria-hidden="true"><use href="#i-out"/></svg></a></li><li><a href="#d"><span>Copy of Newspaper Publication</span><small class="num">13 Nov, 13:51 · 2.62 MB</small><svg class="ic" aria-hidden="true"><use href="#i-out"/></svg></a></li><li><a href="#d"><span>Quarterly table, screener.in</span><small class="num">₹ crore</small><svg class="ic" aria-hidden="true"><use href="#i-out"/></svg></a></li></ul></section>
+<a class="research" href="#"><span><b>Research OLAELEC</b><small>Promised vs delivered, the numbers, and questions answered from its filings</small></span><svg class="ic" aria-hidden="true"><use href="#i-chev"/></svg></a>
+<form class="ask glass" onsubmit="return false"><input placeholder="Ask Finn about OLAELEC" aria-label="Ask Finn about OLAELEC"><button aria-label="Send"><svg class="ic" aria-hidden="true"><use href="#i-send"/></svg></button></form>
+</article></div></body></html>

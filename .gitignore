@@ -1,0 +1,14 @@
+node_modules
+.next
+.vercel
+.env*
+!.env.example
+next-env.d.ts
+tsconfig.tsbuildinfo
+
+# ENAM's brief and appendix: their documents, not ours to republish
+*.pdf
+
+# design-tool state and screenshots
+.impeccable/
+__pycache__/

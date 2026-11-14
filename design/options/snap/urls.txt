@@ -1,0 +1,13 @@
+/alert/ADANIENT-mna-2026-11-08?w=7d
+/alert/ADANIENT-mna-2026-11-11?w=7d
+/alert/BAJFINANCE-fund_raise-2026-11-10?w=7d
+/alert/BAJFINANCE-fund_raise-2026-11-11?w=7d
+/alert/HDFCBANK-management_change-2026-11-12?w=7d
+/alert/HDFCBANK-management_change-2026-11-13?w=7d
+/alert/INDUSINDBK-move-2026-11-11?w=7d
+/alert/OLAELEC-move-2026-11-12?w=7d
+/alert/OLAELEC-results-Sep2026?w=7d
+/alert/PAYTM-move-2026-11-12?w=7d
+/alert/TATAPOWER-management_change-2026-11-11?w=7d
+/alert/TATAPOWER-move-2026-11-11?w=7d
+/alert/TATAPOWER-results-Sep2026?w=7d
