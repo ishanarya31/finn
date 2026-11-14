@@ -358,7 +358,7 @@ input[type="date"] { font: 500 14px/1 var(--ui); }
 .co > .d-head { border-bottom: 0; padding-bottom: 14px; }
 .tabs { position: sticky; top: 8px; z-index: 10; display: flex; gap: 2px; margin: 4px 0 6px; padding: 4px; border-radius: 999px;
   background: rgba(17, 26, 51, 0.97); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), inset 0 0 0 1px var(--pane-brd), 0 12px 24px -14px rgba(0, 0, 0, 0.8); -webkit-backdrop-filter: blur(16px) saturate(1.5); backdrop-filter: blur(16px) saturate(1.5); }
-.tabs button { position: relative; z-index: 1; flex: 1; height: 40px; border: 0; border-radius: 999px; background: none; color: var(--ink2); font-weight: 600; cursor: pointer; transition: color 0.3s; }
+.tabs button { position: relative; z-index: 1; flex: 1 1 0; min-width: 0; height: 36px; padding: 0 4px; border: 0; border-radius: 999px; background: none; color: var(--ink2); font-size: 13px; font-weight: 600; white-space: nowrap; cursor: pointer; transition: color 0.3s; } /* equal quarters, like the tab bar */
 .tabs button:hover { color: var(--ink); }
 .tabs button[aria-selected="true"] { color: #fff; } /* the sliding .thumb draws the highlight */
 .tabs .c { color: var(--accent-text); }
@@ -466,22 +466,23 @@ input[type="date"] { font: 500 14px/1 var(--ui); }
   .lede h1 { font-size: 19px; }
   .right { display: contents; }
   .none { display: none; }
-  .detail { position: fixed; inset: 0; z-index: 50; display: flex; flex-direction: column; background: rgba(9, 14, 30, 0.94); -webkit-backdrop-filter: blur(24px); backdrop-filter: blur(24px); animation: sheet 0.5s var(--ease); }
+  /* phone: an open alert replaces the list and sits on the same glass pane as a company page; the top bar, ask bar
+     and tab bar behave as they do there */
+  .shell:has(.detail.open) > .left { display: none; }
+  .detail { margin: -2px -2px 54px; border-radius: var(--r); background: var(--pane); border: 1px solid var(--pane-brd); box-shadow: var(--pane-shadow); animation: din 0.45s var(--ease); }
   .detail:not(.open) { display: none; }
-  .dscroll { flex: 1; overflow: auto; padding: calc(16px + env(safe-area-inset-top)) 16px 12px; }
+  .dscroll { padding: 24px 20px 24px; }
+  .card.on { background: rgba(22, 35, 64, 0.42); border-color: rgba(160, 185, 240, 0.11); box-shadow: none; } /* no card is open on a phone's list */
   .shell .back { display: inline-flex; }
   .d-head { grid-template-columns: 1fr; }
   .kv { grid-column: 1; grid-row: auto; margin-top: 8px; }
-  .detail .askbar { margin: 0 10px max(10px, env(safe-area-inset-bottom)); }
-  body:has(.detail.open) { overflow: hidden; }
-  body:has(.detail.open) .nav, body:has(.detail.open) .top { display: none; }
+  .detail .askbar { position: fixed; z-index: 20; left: 10px; right: 10px; bottom: calc(max(10px, env(safe-area-inset-bottom)) + 62px); margin: 0; }
   body::before { content: ""; position: fixed; top: 0; left: 0; right: 0; z-index: 39; height: calc(var(--topH) + var(--topY) + 22px); background: linear-gradient(var(--ground2) calc(100% - 16px), transparent); pointer-events: none; }
   body::after { content: ""; position: fixed; bottom: 0; left: 0; right: 0; z-index: 14; height: calc(88px + env(safe-area-inset-bottom)); background: linear-gradient(transparent, var(--ground) 30%); pointer-events: none; }
   .pb { padding-left: 14px; }
   .d-head .tk { font-size: 28px; }
   .r-lede h1 { font-size: 26px; }
 }
-@keyframes sheet { from { transform: translateY(40px); opacity: 0; } }
 @media (max-width: 440px) {
   .qt { min-width: 0; }
   .qt th, .qt td { padding-left: 4px; font-size: 11.5px; }

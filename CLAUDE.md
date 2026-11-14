@@ -6,9 +6,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 FINN is a mobile-first financial investment agent, built as a submission for the ENAM AI Engineer Build Challenge. **Deadline: 15 Nov 2026.** The brief is `ENAM_AI_Engineer_Build_Challenge_Main.pdf`; the appendix is `ENAM_Build_Challenge_Reference.pdf`. The working spec is `PRD.md`. Read `PRD.md` before proposing or building anything.
 
-## Always do this
+## The build log
 
-**Log every exchange.** After responding to each user prompt, append an entry to `llm-logs.md`: the prompt word for word, a short account of what you did, and any decision made. Follow the format already in that file (`### A<n> · <date> — <title>`, then **Prompt**, then **What Claude did**). The log is a graded deliverable.
+**`llm-logs.md` is locked (15 Nov, after entry A45).** It is the graded build log for the submission. Do not add to or edit it unless the user unlocks it.
 
 ## How we work
 
