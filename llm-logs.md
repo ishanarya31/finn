@@ -854,3 +854,26 @@ Removed two lines that no longer apply: "finish Node 1 before Node 2" (both node
 - The last section in each company tab no longer draws a divider.
 
 Measured on a phone after an answer: 24px from the last content to the pane's edge, 13px from there to the ask bar.
+
+### A44 · 15 Nov — Pushed to GitHub, deployed on Vercel
+
+**Prompt**
+
+> Okay seems good lets push it to github and deploy on vercel
+
+**What Claude did**
+
+- **Asked first, about two things:** repo visibility (the user chose public) and whether to include ENAM's brief PDFs (left out). Later asked before copying API keys to Vercel (the user said yes).
+- **Git:**
+  - `.gitignore` extended: PDFs, `.impeccable/`, `tsconfig.tsbuildinfo`, `__pycache__`.
+  - The 89 files were scanned for keys and personal details before committing; none found.
+  - One initial commit on `main`, pushed to a new public repo: https://github.com/ishanarya31/finn
+- **Vercel:**
+  - The linked project `finn` had no environment variables. `DEEP_SEEK_KEY` and `GEMINI_KEY` were piped from `.env.local` into the project as encrypted Production secrets, with values never printed; `OPEN_ROUTER_KEY` left out (unused).
+  - Deployed with `vercel deploy --prod`. Live: https://finn-three-kappa.vercel.app
+- **Checked on the live site:**
+  - `/api/fetch-test` from `bom1`: Yahoo, NSE announcements, screener, a BSE transcript and a BSE annual report all answer 200/206.
+  - All pages return 200; the 7-day feed shows 13 alerts.
+  - A question not answered ahead of time ("Who are the largest customers?" on DIXON) came back with an answer citing DIXON's FY26 annual report, page 24.
+  - The alert text is model-written, not the fallback note.
+- The Vercel project is not connected to GitHub, so pushes do not deploy; `CLAUDE.md` records the deploy command.

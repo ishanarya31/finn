@@ -39,7 +39,7 @@ curl -X POST http://localhost:3000/api/freeze/TCS
 
 Server env vars (in `.env.local`): `DEEP_SEEK_KEY`, `GEMINI_KEY`, `OPEN_ROUTER_KEY` (unused; free models were unreliable). Optional overrides: `DEEPSEEK_MODEL`, `DEEPSEEK_REASON_MODEL`, `GEMINI_MODEL`.
 
-This folder is not a git repository. Deployment is Vercel, region `bom1` (`vercel.json`), so NSE and BSE can be reached from an Indian IP.
+Repo: https://github.com/ishanarya31/finn (public, branch `main`). Live: https://finn-three-kappa.vercel.app, deployed from this folder with `npx vercel deploy --prod` (the Vercel project is not connected to GitHub, so a push does not deploy). Region `bom1` (`vercel.json`), so NSE and BSE answer; `/api/fetch-test` on the live site shows whether each source is reachable. `DEEP_SEEK_KEY` and `GEMINI_KEY` are set in the Vercel project (Production). `.vercelignore` keeps `*.md` and `*.pdf` out of the deploy, and `.gitignore` keeps the ENAM PDFs out of the repo.
 
 ## Next.js version
 
