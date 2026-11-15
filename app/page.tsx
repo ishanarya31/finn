@@ -13,6 +13,8 @@ const DAY = 86400e3;
 const WINDOWS: Record<string, number> = { "24h": 1, "3d": 3, "7d": 7 };
 const label = (i: Item) => (i.cat === "move" ? "Unusual move" : CATEGORIES[i.cat]);
 const weekday = (ts: number) => new Intl.DateTimeFormat("en-IN", { weekday: "short", timeZone: "Asia/Kolkata" }).format(ts);
+// Lists show the day only: a long-term holder does not need the minute. The alert detail keeps the time, which decides the session a move belongs to.
+const day = (ts: number) => new Intl.DateTimeFormat("en-IN", { weekday: "short", day: "numeric", month: "short", timeZone: "Asia/Kolkata" }).format(ts); // "Thu, 12 Nov"
 
 // URL state: w (window), from (custom start), t (alert type shown), a (the open alert).
 export default async function Home({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
@@ -166,7 +168,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
                     <span className="when">
                       <New ts={it.ts} />
                       <time dateTime={new Date(it.ts).toISOString()}>
-                        {weekday(it.ts)} {fmtWhen(it.ts)}
+                        {day(it.ts)}
                       </time>
                     </span>
                   </div>
@@ -215,8 +217,10 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
 
           <details className="fold glass">
             <summary>
-              Quiet holdings <span className="c num">{quiet.length}</span>
-              <span className="d">nothing material; last session&apos;s change</span>
+              <span className="t">
+                Quiet holdings <span className="c num">{quiet.length}</span>
+              </span>
+              <span className="d">Last session&apos;s change · tap to research</span>
               <svg className="ic chev" aria-hidden="true">
                 <use href="#i-chev" />
               </svg>
@@ -226,14 +230,16 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
                 const d = days[s]?.at(-1);
                 return (
                   <li key={s}>
-                    <span className="tk">{s}</span>
-                    {d ? (
-                      <span className="num">
-                        <Delta v={d.pct} d={1} />
-                      </span>
-                    ) : (
-                      <span className="na">no price</span>
-                    )}
+                    <Link href={`/company/${encodeURIComponent(s)}`}>
+                      <span className="tk">{s}</span>
+                      {d ? (
+                        <span className="num">
+                          <Delta v={d.pct} d={1} />
+                        </span>
+                      ) : (
+                        <span className="na">no price</span>
+                      )}
+                    </Link>
                   </li>
                 );
               })}
@@ -241,8 +247,10 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
           </details>
           <details className="fold glass hid">
             <summary>
-              Hidden <span className="c num">{hidden.length}</span>
-              <span className="d">routine filings, kept for the record</span>
+              <span className="t">
+                Hidden <span className="c num">{hidden.length}</span>
+              </span>
+              <span className="d">Routine filings, kept for the record</span>
               <svg className="ic chev" aria-hidden="true">
                 <use href="#i-chev" />
               </svg>
@@ -253,7 +261,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<Rec
                   <a className="row" href={f.url || undefined} target="_blank" rel="noreferrer">
                     <span className="tk">{symbol}</span>
                     <span className="tx">{f.desc}</span>
-                    <time dateTime={new Date(f.ts).toISOString()}>{fmtWhen(f.ts)}</time>
+                    <time dateTime={new Date(f.ts).toISOString()}>{day(f.ts)}</time>
                   </a>
                 </li>
               ))}
@@ -289,7 +297,7 @@ function MinorRow(it: Item) {
         <span className="tx">{it.title}</span>
         <span className="when">
           <New ts={it.ts} />
-          <time dateTime={new Date(it.ts).toISOString()}>{fmtWhen(it.ts)}</time>
+          <time dateTime={new Date(it.ts).toISOString()}>{day(it.ts)}</time>
         </span>
       </a>
     </li>

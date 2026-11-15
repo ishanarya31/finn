@@ -58,7 +58,7 @@ kbd { display: inline-grid; place-items: center; min-width: 20px; height: 20px; 
 .glass { position: relative; background: var(--pane); border: 1px solid var(--pane-brd); border-radius: var(--r); box-shadow: var(--pane-shadow); -webkit-backdrop-filter: blur(22px) saturate(1.3); backdrop-filter: blur(22px) saturate(1.3); }
 
 /* ---- top bar: clear glass with rim light, fixed at every width ---- */
-.top { position: fixed; top: var(--topY); left: 16px; right: 16px; z-index: 40; display: flex; align-items: center; gap: 12px; height: var(--topH); padding: 0 8px 0 6px; border-radius: 999px; isolation: isolate; transition: top 0.45s var(--ease); }
+.top { position: fixed; top: var(--topY); left: 16px; right: 16px; z-index: 40; display: flex; align-items: center; gap: 12px; height: var(--topH); padding: 0 8px 0 6px; border-radius: 999px; isolation: isolate; transition: top 0.25s var(--ease); }
 .top::before { content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit;
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.02) 55%, rgba(255, 255, 255, 0.05));
   -webkit-backdrop-filter: blur(3px) saturate(1.9) brightness(1.18); backdrop-filter: blur(3px) saturate(1.9) brightness(1.18);
@@ -151,7 +151,7 @@ body:not(:has(.shell)) > .wrap:has(> form > .acts) { padding-bottom: 0; } /* Rul
 
 /* list headings */
 .sh { display: flex; align-items: baseline; gap: 8px; margin: 18px 6px 8px; font-size: 12.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink2); }
-.sh:first-child, .warn + .sh { margin-top: 6px; }
+.sh:first-child, .warn + .sh { margin-top: 10px; }
 .c { font-weight: 500; letter-spacing: 0; color: var(--ink3); }
 .sh .d { font-size: 12px; font-weight: 400; letter-spacing: 0; text-transform: none; color: var(--ink3); }
 .hint { margin-left: auto; display: flex; align-items: center; gap: 4px; font-size: 11.5px; font-weight: 500; letter-spacing: 0; text-transform: none; color: var(--ink3); }
@@ -191,17 +191,21 @@ a.row:hover, button.row:hover { background: var(--well); }
 .rows .more summary::-webkit-details-marker { display: none; }
 .rows .more .rows { padding: 0; }
 .fold { margin-top: 10px; border-radius: 18px; }
-.fold > summary { display: flex; align-items: baseline; gap: 8px; padding: 14px 16px; cursor: pointer; list-style: none; font-weight: 650; }
+.fold > summary { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 12px; row-gap: 2px; padding: 14px 16px; cursor: pointer; list-style: none; font-weight: 650; }
+.fold > summary .t { white-space: nowrap; }
+.fold > summary .c { margin-left: 4px; }
 .fold > summary::-webkit-details-marker { display: none; }
 .fold .d { color: var(--ink3); font-weight: 400; font-size: 12.5px; }
-.fold .chev { margin-left: auto; align-self: center; transition: transform 0.35s var(--spring); color: var(--ink2); }
+.fold .chev { grid-column: 2; grid-row: 1 / 3; align-self: center; transition: transform 0.35s var(--spring); color: var(--ink2); }
 .fold[open] .chev { transform: rotate(90deg); }
 .fold > .rows { padding-top: 0; }
-.quiet { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 6px; padding: 0 12px 14px; }
-.quiet li { display: flex; justify-content: space-between; padding: 8px 10px; border-radius: 12px; background: var(--well); font-size: 13px; }
+.quiet { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 6px; padding: 4px 12px 14px; }
+.quiet a { display: flex; justify-content: space-between; gap: 8px; padding: 9px 12px; border-radius: 12px; background: var(--well); font-size: 13px; transition: background 0.2s, transform 0.4s var(--spring); }
+.quiet a:hover { background: var(--well2); transform: translateY(-1px); }
 .hid .tx { text-decoration: line-through; text-decoration-color: var(--ink3); }
 .foot { margin: 14px 6px 0; font-size: 12px; color: var(--ink3); line-height: 1.6; }
 .empty { color: var(--ink2); padding: 8px 6px; font-size: 15px; }
+.lscroll > .empty { margin: 4px 0 8px; padding: 22px 18px; border-radius: 18px; background: var(--well); line-height: 1.5; }
 .none { margin: auto; padding: 40px; color: var(--ink2); text-align: center; }
 .warn { margin: 6px 0 10px; padding: 10px 14px; border-radius: 14px; background: rgba(255, 138, 117, 0.1); box-shadow: inset 0 0 0 1px rgba(255, 138, 117, 0.4); color: var(--down); font-size: 13px; }
 
@@ -246,8 +250,13 @@ a.row:hover, button.row:hover { background: var(--well); }
 .facts { display: grid; gap: 6px; margin-top: 12px; font-size: 14px; color: var(--ink2); }
 .facts b { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
 .checks { counter-reset: n; display: grid; gap: 8px; }
-.checks li { counter-increment: n; display: flex; gap: 12px; align-items: baseline; padding: 12px 14px; border-radius: 14px; background: var(--well); }
-.checks li::before { content: counter(n); font: 600 12px/1 var(--mono); color: var(--accent-text); }
+.checks li { counter-increment: n; }
+.checks a { display: flex; gap: 12px; align-items: baseline; padding: 12px 12px 12px 14px; border-radius: 14px; background: var(--well); transition: background 0.2s, transform 0.4s var(--spring); }
+.checks a::before { content: counter(n); font: 600 12px/1 var(--mono); color: var(--accent-text); }
+.checks .t { flex: 1; }
+.checks .ic { align-self: center; color: var(--ink3); transition: color 0.2s, transform 0.4s var(--spring); }
+.checks a:hover { background: var(--well2); }
+.checks a:hover .ic { color: var(--accent-text); transform: translateX(2px); }
 .src { display: grid; gap: 2px; }
 .src a, .src .nolink { display: flex; align-items: center; gap: 10px; padding: 10px 12px; margin: 0 -12px; border-radius: 12px; transition: background 0.2s; }
 .src a:hover { background: var(--well2); }
@@ -304,7 +313,7 @@ a.row:hover, button.row:hover { background: var(--well); }
 .r-lede h1 { font-size: 30px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
 .r-lede p { margin-top: 8px; color: var(--ink2); font-size: 14px; max-width: 64ch; }
 .wrap > .back:first-child, form > .back:first-child { margin-top: -10px; }
-.sec { margin-top: 26px; }
+.sec { margin-top: 34px; }
 .sec > h2 { display: flex; align-items: baseline; gap: 8px; margin-bottom: 8px; font-size: 12.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink2); }
 .sec > .cap { margin: -4px 0 0; }
 .sbox { margin-top: 18px; }
@@ -316,9 +325,10 @@ a.row:hover, button.row:hover { background: var(--well); }
 .hits .go { color: var(--accent-text); font-weight: 600; font-size: 12.5px; white-space: nowrap; }
 .hits .empty { padding: 12px 16px; font-size: 14px; }
 button.row { width: 100%; background: none; border: 0; text-align: left; cursor: pointer; }
-.chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
 .chips a { display: inline-flex; align-items: center; padding: 8px 14px; border-radius: 999px; background: var(--well); font-size: 13.5px; transition: background 0.25s, transform 0.4s var(--spring); }
 .chips a:hover { background: var(--well2); transform: translateY(-1px); }
+.chips .ic { width: 14px; height: 14px; margin: 0 6px 0 -3px; color: var(--ink3); }
 
 /* portfolio */
 .pf li { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; border-radius: 14px; transition: background 0.2s; }
@@ -435,13 +445,13 @@ input[type="date"] { font: 500 14px/1 var(--ui); }
   body { padding-top: calc(var(--topH) + var(--topY) + 10px); }
   .top { left: 10px; right: 10px; }
   /* phone bar: a lifted pane of light glass, not a dark slab; soft rim, mark in the text colour */
-  .top::before { background: linear-gradient(180deg, rgba(58, 78, 128, 0.82), rgba(40, 56, 98, 0.78)); -webkit-backdrop-filter: blur(18px) saturate(1.5); backdrop-filter: blur(18px) saturate(1.5);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16), inset 0 0 0 1px rgba(160, 185, 240, 0.14), 0 10px 26px -14px rgba(0, 0, 0, 0.6); }
+  .top::before { background: rgba(26, 38, 70, 0.78); -webkit-backdrop-filter: blur(18px) saturate(1.4); backdrop-filter: blur(18px) saturate(1.4);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07), inset 0 0 0 1px rgba(160, 185, 240, 0.11), 0 4px 12px -8px rgba(0, 0, 0, 0.45); }
   .mark { color: var(--ink); font-weight: 700; font-size: 17px; letter-spacing: 0.16em; }
   /* hides on scroll down, returns on scroll up (shell.tsx sets data-bar-hidden) */
   /* moved by `top`, not transform: a transform would carry the fixed tab bar (a child of .top) off screen with it */
   [data-bar-hidden] .top { top: calc(-1 * var(--topH) - 4px); }
-  body::before { transition: transform 0.45s var(--ease); }
+  body::before { transition: transform 0.25s var(--ease); }
   [data-bar-hidden] body::before { transform: translateY(calc(-100% + env(safe-area-inset-top))); }
   .find, .hint { display: none; }
   .nav { position: fixed; z-index: 15; left: 10px; right: 10px; bottom: max(10px, env(safe-area-inset-bottom)); justify-content: space-around; margin: 0; padding: 4px;
@@ -453,7 +463,7 @@ input[type="date"] { font: 500 14px/1 var(--ui); }
   .wrap, .wrap:has(> .shell) { padding: 12px 10px 86px; }
   body:not(:has(.shell)) > .wrap { margin: 10px 8px 84px; padding: 24px 20px 28px; }
   body:not(:has(.shell)) > .wrap:has(.co .askbar) { margin-bottom: 140px; padding-bottom: 24px; } /* phone: the ask bar sits below the pane, so no room is kept inside it */
-  .tabs { top: calc(var(--topH) + var(--topY) + 8px); transition: top 0.45s var(--ease); }
+  .tabs { top: calc(var(--topH) + var(--topY) + 8px); transition: top 0.25s var(--ease); }
   [data-bar-hidden] .tabs { top: calc(env(safe-area-inset-top) + 8px); }
   .qa { scroll-margin-top: 150px; }
   .co ~ .askbar, .co .askbar { bottom: calc(max(10px, env(safe-area-inset-bottom)) + 62px); width: calc(100% - 20px); }
@@ -461,7 +471,8 @@ input[type="date"] { font: 500 14px/1 var(--ui); }
   /* phone: the Save bar is pinned just above the tab bar, like the ask bar on a company page */
   .acts { position: fixed; z-index: 16; left: 8px; right: 8px; bottom: calc(max(10px, env(safe-area-inset-bottom)) + 58px); margin: 0; padding: 10px 12px; border: 1px solid var(--pane-brd); border-radius: 999px; box-shadow: 0 12px 30px -12px rgba(0, 0, 0, 0.8); }
   body:not(:has(.shell)) > .wrap:has(> form > .acts) { padding-bottom: 92px; }
-  .lede { padding: 16px 16px 12px; }
+  .lede { padding: 18px 16px 16px; }
+  .lscroll { margin-top: 18px; }
   .lede .n { font-size: 44px; }
   .lede h1 { font-size: 19px; }
   .right { display: contents; }

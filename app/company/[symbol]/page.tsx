@@ -5,6 +5,7 @@ import { frozen, getCompany, SUGGEST } from "../../../lib/research";
 import { Chart } from "../../chart";
 import { CompanyHead, FiveYears, QuartersTable, Snapshot } from "../../ui";
 import { Company } from "./company";
+import { Remember } from "../../search/recent";
 
 export async function generateMetadata({ params }: { params: Promise<{ symbol: string }> }) {
   return { title: `${decodeURIComponent((await params).symbol).toUpperCase()} · FINN` };
@@ -28,6 +29,7 @@ export default async function CompanyPage({ params, searchParams }: { params: Pr
         Search
       </Link>
       <CompanyHead co={co} />
+      <Remember symbol={co.symbol} />
 
       <Company
         symbol={co.symbol}

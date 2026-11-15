@@ -43,7 +43,7 @@ Repo: https://github.com/ishanarya31/finn (public, branch `main`). Live: https:/
 
 ## Next.js version
 
-Next 16 and React 19, TypeScript 7. APIs differ from older Next (for example, `params` and `searchParams` are Promises, and `cookies()` is async). Read the guide in `node_modules/next/dist/docs/` before writing Next-specific code (see `AGENTS.md`).
+Next 16 and React 19, TypeScript 7, Node 22.6 or newer (needed for `--experimental-strip-types`). APIs differ from older Next (for example, `params` and `searchParams` are Promises, and `cookies()` is async). Read the guide in `node_modules/next/dist/docs/` before writing Next-specific code (see `AGENTS.md`). `next dev` rewrites the block in `AGENTS.md`; commit it rather than reverting it.
 
 ## Architecture
 

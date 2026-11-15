@@ -114,9 +114,9 @@ export function TopBar() {
       ticking = false;
       const y = scrollY;
       const d = y - last;
-      if (!phone.matches || y < 80) root.removeAttribute("data-bar-hidden");
-      else if (d > 6) root.setAttribute("data-bar-hidden", "");
-      else if (d < -6) root.removeAttribute("data-bar-hidden");
+      if (!phone.matches || y < 8) root.removeAttribute("data-bar-hidden");
+      else if (d > 2) root.setAttribute("data-bar-hidden", "");
+      else if (d < -2) root.removeAttribute("data-bar-hidden");
       else return; // keep `last` until the move is big enough to count
       last = y;
     };

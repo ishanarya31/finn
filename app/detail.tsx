@@ -122,10 +122,18 @@ export async function AlertDetail({ item, d, name, rules, now, back, open }: { i
         </section>
 
         <section className="d-sec">
-          <h2>What to check next</h2>
+          <h2>
+            What to check next <small>tap to ask Finn</small>
+          </h2>
+          {/* Each check is a question for Node 2: the company page opens on Ask with it already asked (PRD 5.7, 1.14). */}
           <ol className="checks">
             {why.checks.map((c) => (
-              <li key={c}>{c}</li>
+              <li key={c}>
+                <Link href={`/company/${encodeURIComponent(item.symbol)}?ask=${encodeURIComponent(c)}`}>
+                  <span className="t">{c}</span>
+                  <Icon n="chev" />
+                </Link>
+              </li>
             ))}
           </ol>
         </section>

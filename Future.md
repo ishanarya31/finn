@@ -40,6 +40,8 @@ Written 14 Nov 2026, the day before submission. This is the honest list: what FI
 - Every source is scraped (NSE, screener.in, Yahoo Finance, BSE's archive). Any of them can change its page or refuse cloud servers. Only documents have a fallback (the frozen reads); figures and the feed do not.
 - "EBITDA" is screener's operating profit, which leaves out other income.
 - Prices are end of day. There is no intraday view, by choice.
+- "What to check next" items open Ask with the check as the question, but the checks often name documents FINN does not read (investor presentation, KPI data book, shareholder letter). Those questions get a "not in the documents" answer until the filing PDFs on the push side are read (item 2 below).
+- "Recently opened" companies on Search live in this browser only (`localStorage`); they do not follow the user to another device.
 - The visual design is the first one ("ledger"). The planned "liquid" revamp has not been done.
 
 ## 2. What comes next, in order
